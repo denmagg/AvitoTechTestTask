@@ -14,7 +14,7 @@ final class MainPresenter {
     private enum Consts {
         enum NoConnectionError {
             static let title = "No internet connection"
-            static let description = "Please make sure your phone is connected to the internet and try again"
+            static let description = "Please make sure your device is connected to the internet and try again"
         }
         enum ServerError {
             static let title = "Unable to connect to the server"
