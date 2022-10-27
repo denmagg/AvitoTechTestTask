@@ -52,7 +52,7 @@ extension MainPresenter: MainPresenterProtocol {
     
     func getEmployee(for indexPath: IndexPath) -> Employee? {
         guard let model = employeesModel else { return nil }
-        return model.company.employees[indexPath.row]
+        return model.company.employees.sorted { $0.name < $1.name }[indexPath.row]
     }
     
     func getEmployeesData() {
