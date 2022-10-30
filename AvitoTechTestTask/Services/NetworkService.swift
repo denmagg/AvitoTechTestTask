@@ -54,24 +54,18 @@ final class NetworkService: NetworkServiceProtocol {
             if let data = data, error == nil {
                 do {
                     let obj = try JSONDecoder().decode(Employees.self, from: data)
-                    DispatchQueue.main.async {
-                        let hour: TimeInterval = 3600
-                        let hourCacheDate = Date().addingTimeInterval(hour)
-                        UserDefaults.standard.set(hourCacheDate, forKey: Consts.UserDefaltsKeys.timeTracker)
-                        UserDefaults.standard.set(data, forKey: Consts.UserDefaltsKeys.data)
-                        complition(.success(obj))
-                    }
+                    let hour: TimeInterval = 3600
+                    let hourCacheDate = Date().addingTimeInterval(hour)
+                    UserDefaults.standard.set(hourCacheDate, forKey: Consts.UserDefaltsKeys.timeTracker)
+                    UserDefaults.standard.set(data, forKey: Consts.UserDefaltsKeys.data)
+                    complition(.success(obj))
                     return
                 } catch {
-                    DispatchQueue.main.async {
-                        complition(.failure(.parsingError))
-                    }
+                    complition(.failure(.parsingError))
                     return
                 }
             } else {
-                DispatchQueue.main.async {
-                    complition(.failure(.serverError))
-                }
+                complition(.failure(.serverError))
                 return
             }
         }.resume()

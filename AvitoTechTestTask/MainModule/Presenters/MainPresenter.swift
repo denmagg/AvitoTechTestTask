@@ -57,18 +57,20 @@ extension MainPresenter: MainPresenterProtocol {
     
     func getEmployeesData() {
         networkService?.getEmployeesData { [weak self] result in
-            switch result {
-            case .success(let employees):
-                self?.employeesModel = employees
-                self?.view?.updateTableView()
-            case .failure(let error):
-                switch error {
-                case .noConnection:
-                    self?.view?.showAlert(title: Consts.NoConnectionError.title, message: Consts.NoConnectionError.description)
-                case .serverError:
-                    self?.view?.showAlert(title: Consts.ServerError.title, message: Consts.ServerError.description)
-                case .parsingError, .badUrl:
-                    self?.view?.showAlert(title: Consts.ParsingBadUrlError.title, message: Consts.ParsingBadUrlError.description)
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let employees):
+                    self?.employeesModel = employees
+                    self?.view?.updateTableView()
+                case .failure(let error):
+                    switch error {
+                    case .noConnection:
+                        self?.view?.showAlert(title: Consts.NoConnectionError.title, message: Consts.NoConnectionError.description)
+                    case .serverError:
+                        self?.view?.showAlert(title: Consts.ServerError.title, message: Consts.ServerError.description)
+                    case .parsingError, .badUrl:
+                        self?.view?.showAlert(title: Consts.ParsingBadUrlError.title, message: Consts.ParsingBadUrlError.description)
+                    }
                 }
             }
         }
