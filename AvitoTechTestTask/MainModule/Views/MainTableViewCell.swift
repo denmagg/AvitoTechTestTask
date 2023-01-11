@@ -96,7 +96,6 @@ class MainTableViewCell: UITableViewCell {
             personImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             personImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             
-            
             verticalStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             verticalStack.leadingAnchor.constraint(equalTo: personImageView.trailingAnchor, constant: 20),
             verticalStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),

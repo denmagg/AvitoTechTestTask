@@ -32,7 +32,7 @@ final class NetworkService: NetworkServiceProtocol {
                     complition(.success(obj))
                     return
                 } catch {
-                    complition(.failure(.parsingError))
+                    complition(.failure(.parsingOrBadUrlError))
                     return
                 }
             }
@@ -40,16 +40,17 @@ final class NetworkService: NetworkServiceProtocol {
         
         if !NetworkMonitor.shared.isConnected {
             complition(.failure(.noConnection))
+            return
         }
         
-        guard let employeesUrlString = URL(string: Consts.employeesUrlString) else {
+        guard let url = URL(string: Consts.employeesUrlString) else {
             print("Проверьте валидность URL адреса")
-            complition(.failure(.badUrl))
+            complition(.failure(.parsingOrBadUrlError))
             return
         }
         
         let session = URLSession.shared
-        session.dataTask(with: employeesUrlString) { (data, _, error) in
+        session.dataTask(with: url) { (data, _, error) in
             
             if let data = data, error == nil {
                 do {
@@ -61,11 +62,12 @@ final class NetworkService: NetworkServiceProtocol {
                     complition(.success(obj))
                     return
                 } catch {
-                    complition(.failure(.parsingError))
+                    complition(.failure(.parsingOrBadUrlError))
                     return
                 }
             } else {
                 complition(.failure(.serverError))
+                print(error?.localizedDescription)
                 return
             }
         }.resume()

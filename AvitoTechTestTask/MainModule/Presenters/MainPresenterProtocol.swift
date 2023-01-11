@@ -8,6 +8,7 @@
 import Foundation
 
 protocol MainPresenterProtocol: AnyObject {
+    init(view: MainViewProtocol, router: RouterProtocol, networkService: NetworkServiceProtocol)
     func getNumberOfRows() -> Int?
     func getEmployee(for indexPath: IndexPath) -> Employee?
     func getEmployeesData()

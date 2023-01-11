@@ -9,23 +9,6 @@ import Foundation
 
 final class MainPresenter {
     
-    //MARK: Consts
-    
-    private enum Consts {
-        enum NoConnectionError {
-            static let title = "No internet connection"
-            static let description = "Please make sure your device is connected to the internet and try again"
-        }
-        enum ServerError {
-            static let title = "Unable to connect to the server"
-            static let description = "Please try again later or contact contact our Support team"
-        }
-        enum ParsingBadUrlError {
-            static let title = "Internal application error"
-            static let description = "Please make sure you have the latest version of the app installed. If everything is correct, please contact our Support team."
-        }
-    }
-    
     //MARK: Private properties
     
     private weak var view: MainViewProtocol?
@@ -39,6 +22,7 @@ final class MainPresenter {
         self.view = view
         self.router = router
         self.networkService = networkService
+        getEmployeesData()
     }
     
 }
@@ -63,14 +47,7 @@ extension MainPresenter: MainPresenterProtocol {
                     self?.employeesModel = employees
                     self?.view?.updateTableView()
                 case .failure(let error):
-                    switch error {
-                    case .noConnection:
-                        self?.view?.showAlert(title: Consts.NoConnectionError.title, message: Consts.NoConnectionError.description)
-                    case .serverError:
-                        self?.view?.showAlert(title: Consts.ServerError.title, message: Consts.ServerError.description)
-                    case .parsingError, .badUrl:
-                        self?.view?.showAlert(title: Consts.ParsingBadUrlError.title, message: Consts.ParsingBadUrlError.description)
-                    }
+                    self?.view?.showAlert(title: error.rawValue, message: error.localizedDescription)
                 }
             }
         }

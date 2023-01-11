@@ -11,8 +11,6 @@ protocol AssemblyBuilderProtocol {
     func createMainModule(router: RouterProtocol) -> UIViewController
 }
 
-//Внедрение зависимостей - те они создаются не внутри всех этих сущностей эти штуки, а снаружи и потом туда инжектятся
-//Нужна по SOLID, и для того чтобы во время тестов подсунуть сюда мок объект, для того чтобы протестировать презентер.
 final class AssemblyBuilder: AssemblyBuilderProtocol {
     
     //MARK: methods

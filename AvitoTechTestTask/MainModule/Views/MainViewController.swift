@@ -14,19 +14,16 @@ final class MainViewController: UIViewController {
     private var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.backgroundColor = .clear
-        //        tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureView()
         setupSubviews()
         configureTableView()
         setupConstraints()
-        presenter?.getEmployeesData()
     }
     
     private func configureView() {
