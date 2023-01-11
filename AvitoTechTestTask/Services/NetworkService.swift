@@ -67,7 +67,6 @@ final class NetworkService: NetworkServiceProtocol {
                 }
             } else {
                 complition(.failure(.serverError))
-                print(error?.localizedDescription)
                 return
             }
         }.resume()
