@@ -44,7 +44,6 @@ final class NetworkService: NetworkServiceProtocol {
         }
         
         guard let url = URL(string: Consts.employeesUrlString) else {
-            print("Проверьте валидность URL адреса")
             complition(.failure(.parsingOrBadUrlError))
             return
         }
